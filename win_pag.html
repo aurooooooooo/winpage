@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GANASTE!</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            font-size: 48px;
+            color: #4CAF50;
+            transform: scale(0);
+            animation: zoomIn 1s forwards;
+        }
+        @keyframes zoomIn {
+            to {
+                transform: scale(1);
+            }
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #4CAF50;
+            opacity: 0.8;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+    </style>
+</head>
+<body>
+    <h1>GANASTE!</h1>
+    <script>
+        function createConfetti() {
+            const colors = ['#FFC700', '#FF1F1F', '#4CAF50', '#00BFFF', '#FF69B4'];
+            const confettiCount = 100;
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                const size = Math.random() * 10 + 5;
+                confetti.style.width = `${size}px`;
+                confetti.style.height = `${size}px`;
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.position = 'absolute';
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = `${Math.random() * -100}px`;
+                confetti.style.opacity = Math.random();
+
+                // Agregar animación
+                confetti.style.animation = `fall ${Math.random() * 2 + 2}s forwards`;
+                document.body.appendChild(confetti);
+
+                // Eliminar confetti después de caer
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+        }
+
+        // Ejecutar función de confetti después de que se cargue la página
+        window.onload = () => {
+            createConfetti();
+        };
+    </script>
+</body>
+</html>
