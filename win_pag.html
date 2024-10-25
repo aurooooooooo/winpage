@@ -19,12 +19,13 @@
         h1 {
             font-size: 48px;
             color: #4CAF50;
-            transform: scale(0);
-            animation: zoomIn 1s forwards;
+            transform: scale(0); /* Comienza en escala 0 */
+            animation: zoomIn 1s forwards; /* Aplica la animación de zoom */
         }
+
         @keyframes zoomIn {
             to {
-                transform: scale(1);
+                transform: scale(1); /* Escala final */
             }
         }
         .confetti {
@@ -46,32 +47,39 @@
     <script>
         function createConfetti() {
             const colors = ['#FFC700', '#FF1F1F', '#4CAF50', '#00BFFF', '#FF69B4'];
-            const confettiCount = 100;
-            for (let i = 0; i < confettiCount; i++) {
-                const confetti = document.createElement('div');
-                const size = Math.random() * 10 + 5;
-                confetti.style.width = `${size}px`;
-                confetti.style.height = `${size}px`;
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.position = 'absolute';
-                confetti.style.left = `${Math.random() * 100}vw`;
-                confetti.style.top = `${Math.random() * -100}px`;
-                confetti.style.opacity = Math.random();
+            const confetti = document.createElement('div');
+            const size = Math.random() * 10 + 5;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.position = 'absolute';
+            confetti.style.left = `${Math.random() * 100}vw`;
+            confetti.style.top = `${Math.random() * -100}px`;
+            confetti.style.opacity = Math.random();
 
-                // Agregar animación
-                confetti.style.animation = `fall ${Math.random() * 2 + 2}s forwards`;
-                document.body.appendChild(confetti);
+            // Agregar animación
+            confetti.style.animation = `fall ${Math.random() * 2 + 2}s forwards`;
+            document.body.appendChild(confetti);
 
-                // Eliminar confetti después de caer
-                setTimeout(() => {
-                    confetti.remove();
-                }, 3000);
+            // Eliminar confetti después de caer
+            setTimeout(() => {
+                confetti.remove();
+            }, 3000);
+        }
+
+        // Crear un gran número de confetis al cargar la página
+        function createInitialConfetti(count) {
+            for (let i = 0; i < count; i++) {
+                createConfetti();
             }
         }
 
-        // Ejecutar función de confetti después de que se cargue la página
+        // Crear confeti de forma continua
+        setInterval(createConfetti, 300); // Cada 300 ms
+
+        // Ejecutar al cargar la página
         window.onload = () => {
-            createConfetti();
+            createInitialConfetti(100); // Crear 100 confetis al inicio
         };
     </script>
 </body>
